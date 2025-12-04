@@ -20,7 +20,7 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <main className="flex-1 ml-64 p-8 bg-[var(--background)]">
+      <main className="flex-1 ml-64 p-8 bg-background">
         <div className="max-w-5xl mx-auto">
           {children}
         </div>

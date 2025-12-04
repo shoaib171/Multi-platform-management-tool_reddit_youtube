@@ -92,7 +92,7 @@ export default function TaskDetails() {
             </div>
           </div>
 
-          <div className="bg-[var(--background)] p-4 rounded border border-[var(--card-border)]">
+          <div className="bg-background p-4 rounded border border-card-border">
             <h3 className="font-bold mb-2 text-sm text-muted uppercase">Platform Details</h3>
             {task.platform === 'trustpilot' && (
               <div className="mb-2">
@@ -104,7 +104,7 @@ export default function TaskDetails() {
               href={getPlatformUrl()} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-[var(--primary)] hover:underline break-all"
+              className="flex items-center gap-2 text-primary hover:underline break-all"
             >
               <ExternalLink size={16} />
               {getPlatformUrl()}
@@ -113,7 +113,7 @@ export default function TaskDetails() {
         </div>
 
         {user && (
-          <div className="border-t border-[var(--card-border)] pt-6">
+          <div className="border-t border-card-border pt-6">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold">Actions</h3>
                 <button 

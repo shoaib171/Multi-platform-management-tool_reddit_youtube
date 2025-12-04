@@ -55,27 +55,27 @@ export default function TasksPage() {
         </div>
         <Link 
           href="/tasks/create" 
-          className="flex items-center gap-2 px-6 py-3 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all transform hover:-translate-y-0.5"
+          className="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover text-white rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all transform hover:-translate-y-0.5"
         >
           <Plus size={20} />
           New Task
         </Link>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 bg-[var(--card-bg)] p-4 rounded-xl border border-[var(--card-border)]">
+      <div className="flex flex-col md:flex-row gap-4 bg-card-bg p-4 rounded-xl border border-card-border">
         <div className="flex-1 relative">
           <Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input 
             type="text" 
             placeholder="Search tasks..." 
-            className="w-full bg-[var(--background)] border border-[var(--card-border)] rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-[var(--primary)] transition-colors"
+            className="w-full bg-background border border-card-border rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-[var(--primary)] transition-colors"
           />
         </div>
         
         <div className="flex gap-4">
           <div className="relative min-w-[150px]">
             <select 
-              className="w-full appearance-none bg-[var(--background)] border border-[var(--card-border)] rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-[var(--primary)] transition-colors cursor-pointer"
+              className="w-full appearance-none bg-background border border-card-border rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-[var(--primary)] transition-colors cursor-pointer"
               value={filterPlatform}
               onChange={(e) => { setFilterPlatform(e.target.value); setPage(1); }}
             >
@@ -89,7 +89,7 @@ export default function TasksPage() {
 
           <div className="relative min-w-[150px]">
             <select 
-              className="w-full appearance-none bg-[var(--background)] border border-[var(--card-border)] rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-[var(--primary)] transition-colors cursor-pointer"
+              className="w-full appearance-none bg-background border border-card-border rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-[var(--primary)] transition-colors cursor-pointer"
               value={filterStatus}
               onChange={(e) => { setFilterStatus(e.target.value); setPage(1); }}
             >
@@ -106,7 +106,7 @@ export default function TasksPage() {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="h-64 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] animate-pulse"></div>
+            <div key={i} className="h-64 rounded-xl bg-card-bg border border-card-border animate-pulse"></div>
           ))}
         </div>
       ) : (
@@ -115,13 +115,13 @@ export default function TasksPage() {
             <Link 
               href={`/tasks/${task._id}`} 
               key={task._id} 
-              className="group bg-[var(--card-bg)] border border-[var(--card-border)] rounded-xl p-6 hover:border-[var(--primary)] hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300 flex flex-col h-full"
+              className="group bg-card-bg border border-card-border rounded-xl p-6 hover:border-[var(--primary)] hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300 flex flex-col h-full"
             >
               <div className="flex justify-between items-start mb-4">
                 <span className={`px-3 py-1 rounded-full text-xs font-medium border capitalize ${getStatusColor(task.status)}`}>
                   {task.status}
                 </span>
-                <button className="text-muted hover:text-[var(--foreground)] opacity-0 group-hover:opacity-100 transition-opacity">
+                <button className="text-muted hover:text-foreground opacity-0 group-hover:opacity-100 transition-opacity">
                   <MoreHorizontal size={20} />
                 </button>
               </div>
@@ -136,12 +136,12 @@ export default function TasksPage() {
                     {task.platform}
                   </span>
                 </div>
-                <h3 className="text-lg font-semibold line-clamp-2 group-hover:text-[var(--primary)] transition-colors">
+                <h3 className="text-lg font-semibold line-clamp-2 group-hover:text-primary transition-colors">
                   {task.content}
                 </h3>
               </div>
               
-              <div className="pt-4 border-t border-[var(--card-border)] flex items-center justify-between text-sm text-muted">
+              <div className="pt-4 border-t border-card-border flex items-center justify-between text-sm text-muted">
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-1.5">
                     <DollarSign size={14} />
@@ -153,7 +153,7 @@ export default function TasksPage() {
                   </div>
                 </div>
                 {task.assignedTo && (
-                  <div className="w-6 h-6 rounded-full bg-[var(--primary)] flex items-center justify-center text-[10px] text-white font-bold" title={task.assignedTo.name}>
+                  <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-[10px] text-white font-bold" title={task.assignedTo.name}>
                     {task.assignedTo.name.charAt(0)}
                   </div>
                 )}
@@ -164,7 +164,7 @@ export default function TasksPage() {
       )}
 
       {tasks.length === 0 && !loading && (
-        <div className="text-center py-20 bg-[var(--card-bg)] rounded-xl border border-[var(--card-border)]">
+        <div className="text-center py-20 bg-card-bg rounded-xl border border-card-border">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--secondary)] mb-4">
             <Search size={32} className="text-muted" />
           </div>
@@ -178,17 +178,17 @@ export default function TasksPage() {
       <div className="flex justify-center pt-8">
         <div className="flex gap-2">
           <button 
-            className="px-4 py-2 rounded-lg border border-[var(--card-border)] hover:bg-[var(--secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="px-4 py-2 rounded-lg border border-card-border hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             disabled={page === 1}
             onClick={() => setPage(p => p - 1)}
           >
             Previous
           </button>
-          <span className="flex items-center px-4 font-medium bg-[var(--card-bg)] rounded-lg border border-[var(--card-border)]">
+          <span className="flex items-center px-4 font-medium bg-card-bg rounded-lg border border-card-border">
             Page {page} of {totalPages || 1}
           </span>
           <button 
-            className="px-4 py-2 rounded-lg border border-[var(--card-border)] hover:bg-[var(--secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="px-4 py-2 rounded-lg border border-card-border hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             disabled={page >= totalPages}
             onClick={() => setPage(p => p + 1)}
           >

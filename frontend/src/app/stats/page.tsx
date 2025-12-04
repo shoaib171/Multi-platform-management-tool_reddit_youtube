@@ -81,9 +81,9 @@ export default function Stats() {
                 <span className="text-muted">Tasks</span>
                 <span className="font-bold">{stat.totalTasks}</span>
               </div>
-              <div className="w-full bg-[var(--background)] h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-background h-2 rounded-full overflow-hidden">
                 <div 
-                  className="bg-[var(--primary)] h-full" 
+                  className="bg-primary h-full" 
                   style={{ width: `${(stat.publishedTasks / stat.totalTasks) * 100}%` }}
                 ></div>
               </div>
@@ -91,9 +91,9 @@ export default function Stats() {
                 <span className="text-muted">Published</span>
                 <span>{stat.publishedTasks} ({Math.round((stat.publishedTasks / stat.totalTasks) * 100) || 0}%)</span>
               </div>
-              <div className="pt-4 border-t border-[var(--card-border)] flex justify-between items-center">
+              <div className="pt-4 border-t border-card-border flex justify-between items-center">
                 <span className="text-muted">Value</span>
-                <span className="font-bold text-[var(--success)]">${stat.totalPrice.toFixed(2)}</span>
+                <span className="font-bold text-success">${stat.totalPrice.toFixed(2)}</span>
               </div>
             </div>
           </div>

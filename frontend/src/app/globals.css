@@ -34,19 +34,19 @@ body {
   }
   
   .btn-primary {
-    @apply bg-blue-500 hover:bg-blue-600 text-white;
+    @apply bg-primary hover:bg-primary-hover text-white;
   }
   
   .btn-secondary {
-    @apply bg-slate-800 text-slate-100 border border-slate-700 hover:bg-slate-700;
+    @apply bg-secondary text-foreground border border-card-border hover:bg-secondary-hover;
   }
 
   .card {
-    @apply bg-slate-800 border border-slate-700 rounded-lg p-6 shadow-sm;
+    @apply bg-card-bg border border-card-border rounded-lg p-6 shadow-sm;
   }
 
   .input {
-    @apply w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all;
+    @apply w-full px-3 py-2 bg-input-bg border border-input-border rounded-lg text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all;
   }
 
   .label {

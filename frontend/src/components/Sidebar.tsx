@@ -14,10 +14,10 @@ const Sidebar = () => {
   const isActive = (path: string) => pathname.startsWith(path);
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-[var(--card-bg)] border-r border-[var(--card-border)] flex flex-col">
-      <div className="p-6 border-b border-[var(--card-border)]">
-        <h1 className="text-xl font-bold text-[var(--primary)] flex items-center gap-2">
-          <div className="w-8 h-8 rounded bg-[var(--primary)] flex items-center justify-center text-white">
+    <aside className="fixed left-0 top-0 h-screen w-64 bg-card-bg border-r border-card-border flex flex-col">
+      <div className="p-6 border-b border-card-border">
+        <h1 className="text-xl font-bold text-primary flex items-center gap-2">
+          <div className="w-8 h-8 rounded bg-primary flex items-center justify-center text-white">
             CR
           </div>
           Crowd Reply
@@ -29,8 +29,8 @@ const Sidebar = () => {
           href="/stats" 
           className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
             isActive('/stats') 
-              ? 'bg-[var(--primary)] text-white' 
-              : 'text-muted hover:bg-[var(--secondary)] hover:text-white'
+              ? 'bg-primary text-white' 
+              : 'text-muted hover:bg-secondary hover:text-white'
           }`}
         >
           <LayoutDashboard size={20} />
@@ -41,8 +41,8 @@ const Sidebar = () => {
           href="/tasks" 
           className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
             isActive('/tasks') 
-              ? 'bg-[var(--primary)] text-white' 
-              : 'text-muted hover:bg-[var(--secondary)] hover:text-white'
+              ? 'bg-primary text-white' 
+              : 'text-muted hover:bg-secondary hover:text-white'
           }`}
         >
           <ListTodo size={20} />
@@ -50,10 +50,10 @@ const Sidebar = () => {
         </Link>
       </nav>
 
-      <div className="p-4 border-t border-[var(--card-border)]">
+      <div className="p-4 border-t border-card-border">
         <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--secondary)]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-bold">
+            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
               {user.name.charAt(0).toUpperCase()}
             </div>
             <div className="flex flex-col overflow-hidden">

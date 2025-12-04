@@ -63,7 +63,7 @@ export default function CreateTask() {
         <h1 className="text-3xl font-bold">Create New Task</h1>
       </div>
 
-      <div className="card bg-[var(--card-bg)] border-[var(--card-border)] p-8">
+      <div className="card bg-card-bg border-card-border p-8">
         {error && (
           <div className="bg-red-500/10 border border-red-500 text-red-500 p-4 rounded-lg mb-6 text-sm">
             {error}
@@ -81,14 +81,14 @@ export default function CreateTask() {
                   onClick={() => setPlatform(p)}
                   className={`relative flex flex-col items-center justify-center gap-3 p-4 rounded-xl border-2 transition-all duration-200 ${
                     platform === p
-                      ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
-                      : 'border-[var(--card-border)] hover:border-[var(--secondary-hover)] hover:bg-[var(--secondary)] text-muted'
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-card-border hover:border-secondary-hover hover:bg-secondary text-muted'
                   }`}
                 >
                   {getPlatformIcon(p)}
                   <span className="capitalize font-medium">{p}</span>
                   {platform === p && (
-                    <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[var(--primary)]"></div>
+                    <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary"></div>
                   )}
                 </button>
               ))}
@@ -100,7 +100,7 @@ export default function CreateTask() {
             <div className="space-y-4">
               <div>
                 <textarea
-                  className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded-lg p-4 text-[var(--foreground)] placeholder:text-muted/50 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all resize-none"
+                  className="w-full bg-input-bg border border-input-border rounded-lg p-4 text-foreground placeholder:text-muted/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none"
                   rows={4}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
@@ -113,7 +113,7 @@ export default function CreateTask() {
                 <div className="relative">
                   <input
                     type="url"
-                    className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded-lg p-4 pl-12 text-[var(--foreground)] placeholder:text-muted/50 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all"
+                    className="w-full bg-input-bg border border-input-border rounded-lg p-4 pl-12 text-foreground placeholder:text-muted/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                     placeholder="https://reddit.com/r/..."
@@ -129,7 +129,7 @@ export default function CreateTask() {
                 <div className="relative">
                   <input
                     type="url"
-                    className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded-lg p-4 pl-12 text-[var(--foreground)] placeholder:text-muted/50 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all"
+                    className="w-full bg-input-bg border border-input-border rounded-lg p-4 pl-12 text-foreground placeholder:text-muted/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                     placeholder="https://youtube.com/watch?v=..."
@@ -146,7 +146,7 @@ export default function CreateTask() {
                   <div className="relative">
                     <input
                       type="url"
-                      className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded-lg p-4 pl-12 text-[var(--foreground)] placeholder:text-muted/50 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all"
+                      className="w-full bg-input-bg border border-input-border rounded-lg p-4 pl-12 text-foreground placeholder:text-muted/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
                       placeholder="https://trustpilot.com/review/..."
@@ -159,7 +159,7 @@ export default function CreateTask() {
                   <div>
                     <input
                       type="text"
-                      className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded-lg p-4 text-[var(--foreground)] placeholder:text-muted/50 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all"
+                      className="w-full bg-input-bg border border-input-border rounded-lg p-4 text-foreground placeholder:text-muted/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                       value={reviewTitle}
                       onChange={(e) => setReviewTitle(e.target.value)}
                       placeholder="Review Title (e.g., Great Service!)"
@@ -171,17 +171,17 @@ export default function CreateTask() {
             </div>
           </div>
 
-          <div className="pt-4 flex justify-end gap-4 border-t border-[var(--card-border)]">
+          <div className="pt-4 flex justify-end gap-4 border-t border-card-border">
             <button
               type="button"
               onClick={() => router.back()}
-              className="px-6 py-3 rounded-lg border border-[var(--card-border)] hover:bg-[var(--secondary)] transition-colors font-medium"
+              className="px-6 py-3 rounded-lg border border-card-border hover:bg-secondary transition-colors font-medium"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-8 py-3 rounded-lg bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-medium shadow-lg shadow-blue-500/20 transition-all transform hover:-translate-y-0.5"
+              className="px-8 py-3 rounded-lg bg-primary hover:bg-primary-hover text-white font-medium shadow-lg shadow-blue-500/20 transition-all transform hover:-translate-y-0.5"
               disabled={loading}
             >
               {loading ? 'Creating...' : 'Create Task'}

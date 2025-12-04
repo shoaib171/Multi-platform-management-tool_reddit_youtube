@@ -110,8 +110,8 @@ export default function EditTask() {
                   disabled={true} 
                   className={`p-3 rounded border text-center capitalize transition-colors opacity-50 cursor-not-allowed ${
                     platform === p
-                      ? 'border-[var(--primary)] bg-[var(--primary)] text-white'
-                      : 'border-[var(--card-border)]'
+                      ? 'border-primary bg-primary text-white'
+                      : 'border-card-border'
                   }`}
                 >
                   {p}
