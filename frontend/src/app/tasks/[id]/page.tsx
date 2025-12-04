@@ -1,9 +1,8 @@
 'use client';
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import api from '../../../services/api';
-import { ITask, TaskStatus } from '../../../types';
+import { useTask } from '../../../hooks/useTask';
+import { TaskStatus } from '../../../types';
 import { useAuth } from '../../../context/AuthContext';
 import { ArrowLeft, ExternalLink, Calendar, User, DollarSign } from 'lucide-react';
 
@@ -11,32 +10,15 @@ export default function TaskDetails() {
   const { id } = useParams();
   const router = useRouter();
   const { user } = useAuth();
-  const [task, setTask] = useState<ITask | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { task, loading, updateStatus } = useTask(id as string);
   const [updating, setUpdating] = useState(false);
-
-  useEffect(() => {
-    const fetchTask = async () => {
-      try {
-        const res = await api.get(`/tasks/${id}`);
-        setTask(res.data);
-      } catch (error) {
-        console.error('Error fetching task:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (id) fetchTask();
-  }, [id]);
 
   const handleStatusChange = async (newStatus: TaskStatus) => {
     if (!task) return;
     setUpdating(true);
     try {
-      const res = await api.put(`/tasks/${task._id}`, { status: newStatus });
-      setTask(res.data);
+      await updateStatus(newStatus);
     } catch (error) {
-      console.error('Error updating task:', error);
       alert('Failed to update status');
     } finally {
       setUpdating(false);

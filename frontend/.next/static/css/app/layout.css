@@ -1035,6 +1035,9 @@ video {
 .bg-yellow-500\/20 {
   background-color: rgb(234 179 8 / 0.2);
 }
+.bg-secondary {
+  background-color: var(--secondary);
+}
 .p-2 {
   padding: 0.5rem;
 }
@@ -1204,6 +1207,9 @@ video {
   --tw-shadow-color: rgb(59 130 246 / 0.2);
   --tw-shadow: var(--tw-shadow-colored);
 }
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1268,6 +1274,10 @@ body {
 
 .hover\:border-secondary-hover:hover {
   border-color: var(--secondary-hover);
+}
+
+.hover\:border-primary:hover {
+  border-color: var(--primary);
 }
 
 .hover\:bg-\[var\(--card-border\)\]:hover {

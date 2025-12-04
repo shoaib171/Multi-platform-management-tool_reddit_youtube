@@ -1,27 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import api from '../../services/api';
-import { IStats } from '../../types';
+import { useStats } from '../../hooks/useStats';
 import { BarChart2, CheckCircle, DollarSign, List } from 'lucide-react';
 
 export default function Stats() {
-  const [stats, setStats] = useState<IStats[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const res = await api.get('/stats/platform-summary');
-        setStats(res.data);
-      } catch (error) {
-        console.error('Error fetching stats:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchStats();
-  }, []);
+  const { stats, loading } = useStats();
 
   if (loading) return <div className="text-center py-12">Loading stats...</div>;
 

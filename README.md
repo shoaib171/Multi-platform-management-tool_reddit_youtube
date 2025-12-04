@@ -1,81 +1,63 @@
-# Task Management App
-A simplified Task Management API and Frontend for multi-platform "social tasks".
+# Crowd Reply - Task Management System
 
-## Tech Stack
-
-- **Backend**: Node.js, Express, TypeScript, MongoDB (Mongoose)
-- **Frontend**: Next.js, TypeScript, CSS Modules
-- **Authentication**: JWT (Bonus)
-
-## Prerequisites
-
-- Node.js (v14+)
-- MongoDB (Local or Atlas)
-
-## Getting Started
-
-### Backend
-
-1. Navigate to the `backend` directory:
-   ```bash
-   cd backend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Create a `.env` file (or use the provided one):
-   ```env
-   PORT=4000
-   MONGO_URI=mongodb://localhost:27017/mern-assessment
-   JWT_SECRET=supersecretkey
-   ```
-
-4. Run the server:
-   - Development: `npm run dev`
-   - Production Build: `npm run build` then `npm start`
-
-The API will run on `http://localhost:4000`.
-
-### Frontend
-
-1. Navigate to the `frontend` directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-The application will run on `http://localhost:3000`.
+A full-stack MERN (MongoDB, Express, React/Next.js, Node.js) application for managing social media tasks.
 
 ## Features
 
-- **Create Tasks**: Support for Reddit, YouTube, and Trustpilot tasks.
-- **List Tasks**: Filter by status and platform.
-- **Task Details**: View and update task status.
-- **Analytics**: View platform-specific statistics.
-- **Authentication**: Register and Login to manage tasks.
+- **User Authentication**: Register and login securely.
+- **Task Management**: Create, read, update, and delete tasks.
+- **Platform Specifics**: Support for Reddit, YouTube, and Trustpilot tasks with specific fields.
+- **Analytics**: View platform-specific statistics and revenue.
+- **Responsive Design**: Modern, dark-themed UI built with Tailwind CSS.
 
-## API Endpoints
+## Tech Stack
 
-- `POST /api/auth/register`: Register a new user.
-- `POST /api/auth/login`: Login.
-- `GET /api/tasks`: Get all tasks (filters: status, platform).
-- `POST /api/tasks`: Create a task (Protected).
-- `GET /api/tasks/:id`: Get a task by ID.
-- `PUT /api/tasks/:id`: Update a task (Protected).
-- `GET /api/stats/platform-summary`: Get analytics.
+- **Backend**: Node.js, Express, MongoDB, Mongoose, TypeScript, JWT.
+- **Frontend**: Next.js (App Router), TypeScript, Tailwind CSS, Axios.
 
-## License
+## Getting Started
 
-MIT
+### Prerequisites
+
+- Node.js (v18+)
+- MongoDB (Local or Atlas)
+
+### Installation
+
+1.  **Clone the repository**
+2.  **Backend Setup**:
+    ```bash
+    cd backend
+    npm install
+    # Create .env file (see .env.example)
+    npm run dev
+    ```
+3.  **Frontend Setup**:
+    ```bash
+    cd frontend
+    npm install
+    # Create .env.local file
+    npm run dev
+    ```
+
+### Environment Variables
+
+**Backend (.env)**:
+```env
+PORT=4000
+MONGO_URI=mongodb://localhost:27017/mern-assessment
+JWT_SECRET=your_jwt_secret
+```
+
+**Frontend (.env.local)**:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:4000/api
+```
+
+## Note on Search Functionality
+
+The search bar on the Tasks page provides **client-side filtering** for the currently loaded tasks. It filters tasks by content or platform name. For a full database search, backend implementation would be required.
+
+## API Documentation
+
+A Postman collection is included in the root directory (`postman_collection.json`) for testing API endpoints.

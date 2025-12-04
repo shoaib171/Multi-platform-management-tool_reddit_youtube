@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import api from '../../../../services/api';
-import { TaskPlatform, ITask } from '../../../../types';
+import { useTask } from '../../../../hooks/useTask';
+import { TaskPlatform } from '../../../../types';
 import { useAuth } from '../../../../context/AuthContext';
 import { ArrowLeft } from 'lucide-react';
 
@@ -11,45 +11,33 @@ export default function EditTask() {
   const { user } = useAuth();
   const router = useRouter();
   const { id } = useParams();
+  const { task, loading: taskLoading, updateTask } = useTask(id as string);
   
   const [platform, setPlatform] = useState<TaskPlatform>(TaskPlatform.REDDIT);
   const [content, setContent] = useState('');
   const [url, setUrl] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (!user && !loading) {
+    if (!user && !taskLoading) {
       router.push('/login');
       return;
     }
 
-    const fetchTask = async () => {
-      try {
-        const res = await api.get(`/tasks/${id}`);
-        const task: ITask = res.data;
-        
-        setPlatform(task.platform);
-        setContent(task.content);
-        
-        if (task.platform === TaskPlatform.REDDIT) setUrl(task.threadUrl || '');
-        if (task.platform === TaskPlatform.YOUTUBE) setUrl(task.videoUrl || '');
-        if (task.platform === TaskPlatform.TRUSTPILOT) {
-          setUrl(task.businessUrl || '');
-          setReviewTitle(task.reviewTitle || '');
-        }
-      } catch (err) {
-        setError('Failed to load task');
-        console.error(err);
-      } finally {
-        setLoading(false);
+    if (task) {
+      setPlatform(task.platform);
+      setContent(task.content);
+      
+      if (task.platform === TaskPlatform.REDDIT) setUrl(task.threadUrl || '');
+      if (task.platform === TaskPlatform.YOUTUBE) setUrl(task.videoUrl || '');
+      if (task.platform === TaskPlatform.TRUSTPILOT) {
+        setUrl(task.businessUrl || '');
+        setReviewTitle(task.reviewTitle || '');
       }
-    };
-
-    if (id) fetchTask();
-  }, [id, user, router]);
+    }
+  }, [task, user, router, taskLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +59,7 @@ export default function EditTask() {
     }
 
     try {
-      await api.put(`/tasks/${id}`, data);
+      await updateTask(data);
       router.push(`/tasks/${id}`);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to update task');
@@ -80,7 +68,7 @@ export default function EditTask() {
     }
   };
 
-  if (loading) return <div className="text-center py-12">Loading...</div>;
+  if (taskLoading) return <div className="text-center py-12">Loading...</div>;
 
   return (
     <div className="flex justify-center">

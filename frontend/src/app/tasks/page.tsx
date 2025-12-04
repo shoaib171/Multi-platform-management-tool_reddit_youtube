@@ -1,39 +1,31 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import api from '../../services/api';
-import { ITask, TaskStatus, TaskPlatform } from '../../types';
+import { useTasks } from '../../hooks/useTasks';
+import { TaskStatus, TaskPlatform } from '../../types';
 import { Filter, Clock, DollarSign, Plus, Search, MoreHorizontal } from 'lucide-react';
 
 export default function TasksPage() {
-  const [tasks, setTasks] = useState<ITask[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [filterStatus, setFilterStatus] = useState<string>('');
-  const [filterPlatform, setFilterPlatform] = useState<string>('');
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const { 
+    tasks, 
+    loading, 
+    page, 
+    totalPages, 
+    filterStatus, 
+    filterPlatform, 
+    setPage, 
+    setFilterStatus, 
+    setFilterPlatform 
+  } = useTasks();
 
-  const fetchTasks = async () => {
-    setLoading(true);
-    try {
-      const params: any = { page, limit: 9 };
-      if (filterStatus) params.status = filterStatus;
-      if (filterPlatform) params.platform = filterPlatform;
+  const [searchQuery, setSearchQuery] = useState('');
 
-      const res = await api.get('/tasks', { params });
-      setTasks(res.data.tasks);
-      setTotalPages(res.data.totalPages);
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchTasks();
-  }, [page, filterStatus, filterPlatform]);
+  // Client-side search filtering
+  const filteredTasks = tasks.filter(task => 
+    task.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    task.platform.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const getStatusColor = (status: TaskStatus) => {
     switch (status) {
@@ -68,14 +60,16 @@ export default function TasksPage() {
           <input 
             type="text" 
             placeholder="Search tasks..." 
-            className="w-full bg-background border border-card-border rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-[var(--primary)] transition-colors"
+            className="w-full bg-background border border-card-border rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-primary transition-colors"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         
         <div className="flex gap-4">
           <div className="relative min-w-[150px]">
             <select 
-              className="w-full appearance-none bg-background border border-card-border rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-[var(--primary)] transition-colors cursor-pointer"
+              className="w-full appearance-none bg-background border border-card-border rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary transition-colors cursor-pointer"
               value={filterPlatform}
               onChange={(e) => { setFilterPlatform(e.target.value); setPage(1); }}
             >
@@ -89,7 +83,7 @@ export default function TasksPage() {
 
           <div className="relative min-w-[150px]">
             <select 
-              className="w-full appearance-none bg-background border border-card-border rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-[var(--primary)] transition-colors cursor-pointer"
+              className="w-full appearance-none bg-background border border-card-border rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary transition-colors cursor-pointer"
               value={filterStatus}
               onChange={(e) => { setFilterStatus(e.target.value); setPage(1); }}
             >
@@ -111,11 +105,11 @@ export default function TasksPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tasks.map((task) => (
+          {filteredTasks.map((task) => (
             <Link 
               href={`/tasks/${task._id}`} 
               key={task._id} 
-              className="group bg-card-bg border border-card-border rounded-xl p-6 hover:border-[var(--primary)] hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300 flex flex-col h-full"
+              className="group bg-card-bg border border-card-border rounded-xl p-6 hover:border-primary hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300 flex flex-col h-full"
             >
               <div className="flex justify-between items-start mb-4">
                 <span className={`px-3 py-1 rounded-full text-xs font-medium border capitalize ${getStatusColor(task.status)}`}>
@@ -163,14 +157,14 @@ export default function TasksPage() {
         </div>
       )}
 
-      {tasks.length === 0 && !loading && (
+      {filteredTasks.length === 0 && !loading && (
         <div className="text-center py-20 bg-card-bg rounded-xl border border-card-border">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--secondary)] mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary mb-4">
             <Search size={32} className="text-muted" />
           </div>
           <h3 className="text-xl font-bold mb-2">No tasks found</h3>
           <p className="text-muted max-w-md mx-auto">
-            Try adjusting your filters or create a new task to get started.
+            {searchQuery ? 'No tasks match your search query.' : 'Try adjusting your filters or create a new task to get started.'}
           </p>
         </div>
       )}
@@ -180,7 +174,7 @@ export default function TasksPage() {
           <button 
             className="px-4 py-2 rounded-lg border border-card-border hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             disabled={page === 1}
-            onClick={() => setPage(p => p - 1)}
+            onClick={() => setPage(page - 1)}
           >
             Previous
           </button>
@@ -190,7 +184,7 @@ export default function TasksPage() {
           <button 
             className="px-4 py-2 rounded-lg border border-card-border hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             disabled={page >= totalPages}
-            onClick={() => setPage(p => p + 1)}
+            onClick={() => setPage(page + 1)}
           >
             Next
           </button>
